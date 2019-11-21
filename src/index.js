@@ -2,9 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require ('path');
+const flash = require ('connect-flash');
+const swal = require('sweetalert2');
+
 
 //Initializations
 const app = express();
+
 
 //Setings
 app.set('port', process.env.PORT || 3000);
@@ -22,6 +26,7 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json()); //Sirve para poder recibir archivos json
+
 
 //Global Vairables
 app.use((req,res,next) =>{
