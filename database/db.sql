@@ -7,12 +7,14 @@ Create TABLE users(
     id INT(11) NOT NULL,
     username varchar(16) NOT NULL,
     password VARCHAR(60) NOT NULL,
+    fullname VARCHAR(100) NOT NULL
 );
 
 --Tabla de productos
 Create TABLE productos(
     id INT (11) NOT NULL,
     title VARCHAR(150) NOT NULL,
+    precio INT (11) NOT NULL,
     description TEXT,
     user_id INT(11),
     created_at timestamp NOT NULL DEFAULT current_timestamp,

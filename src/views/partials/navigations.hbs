@@ -1,7 +1,7 @@
 <!--Barra encabezado -->
-    <nav id="Encabezado" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <nav id="Encabezado" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <a class="navbar-brand" href="file:///C:/Users/Vlady/Desktop/Bar/index.html">
- <img src="CSS/Imagenes/Logo3.png" alt="Logo Vape">
+ <img src="Imagenes/Logo3.png" alt="Logo Vape">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -9,15 +9,30 @@
  <div class="collapse navbar-collapse" id="navbar">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#Main">Inicio</span></a>
+        <a class="nav-link" href="/">Inicio</span></a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="#productos">Vaporizadores</span></a>
+      {{#if user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/vapebro/add">Add Product</span></a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/vapebro">Products</span></a>
       </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="#Lugar">Ubicacion</span></a>
-      </li>
-      <!--LogIn -->
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/signin">SignIn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/signup">SignUp</a>
+        </li>
+      {{/if}}
+      <!--LogIn 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">LogIn <span class="sr-only"></span></a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -44,11 +59,11 @@
             <a class="dropdown-item" href="#">No tenes una cuenta? Registrate</a>
           <a class="dropdown-item" href="#">Olvidaste tu contraseña?</a>
       </li>
-      <!--LogIn -->
+      LogIn -->
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>

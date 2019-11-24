@@ -3,11 +3,15 @@ const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require ('path');
 const flash = require ('connect-flash');
-const swal = require('sweetalert2');
-
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+//const swal = require('sweetalert2');
+const {database} = require('./keys');
+const passport = require('passport');
 
 //Initializations
 const app = express();
+require('./lib/passport');
 
 
 //Setings
@@ -23,14 +27,25 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 //Middlewares
+app.use(session({
+    secret: 'vladtmysqlnodesession',
+    resave: false,
+    saveUninitialized: false,
+    store: new MySQLStore(database)
+}));
+app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json()); //Sirve para poder recibir archivos json
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Global Vairables
 app.use((req,res,next) =>{
-
+    app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;
     next();
 });
 
