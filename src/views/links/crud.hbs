@@ -7,15 +7,15 @@
                     <h3 class="card-title text-uppercase">
                         {{fullname}}
                      </h3>
+                    {{#if rol}}
+                    <p class="m-2">Is Admin</p>
+                    {{/if}}
                     <p class="m-2">{{username}}</p>
                     <p class="text-muted">
                         {{timeago created_at}}
                     </p>
                     <a class="btn btn-outline-danger" href="/vapebro/deleteUs/{{id}}">
                         Delete user
-                    </a>
-                    <a class="btn btn-outline-secondary" href="/vapebro/edit/{{id}}">
-                        Edit
                     </a>
                     <a class="btn btn-outline-secondary" href="/vapebro/rol/{{id}}">admin
                     </a>
