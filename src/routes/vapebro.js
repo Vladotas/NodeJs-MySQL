@@ -14,8 +14,7 @@ router.get('/add',isLoggedIn,(req,res) =>{
         const newProduct = {
             title,
             description,
-            precio,
-            user_id: req.user.id
+            precio
         };
         await pool.query('INSERT INTO productos set ?',[newProduct])
         req.flash('success', 'Product Saved Successfully');
@@ -23,10 +22,10 @@ router.get('/add',isLoggedIn,(req,res) =>{
     });
 
     router.get(`/`,isLoggedIn, async (req,res) =>{
-        const productos = await pool.query('SELECT * FROM productos WHERE user_id = ?', [req.user.id]);
+        const productos = await pool.query('SELECT * FROM productos');
         res.render('links/list', { productos });
         
-    })
+    });
 
     router.get('/delete/:id',isLoggedIn, async (req,res) =>{
        const {id} = req.params;
@@ -53,4 +52,27 @@ router.get('/add',isLoggedIn,(req,res) =>{
         req.flash('success', 'Product Updated Successfully');
         res.redirect('/vapebro');
     });
+
+    router.get(`/crud`,isLoggedIn, async (req,res) =>{
+        const users = await pool.query('SELECT * FROM users');
+        res.render('links/crud', { users });
+        
+    });
+
+    router.get('/deleteUs/:id',isLoggedIn, async (req,res) =>{
+        const {id} = req.params;
+        await pool.query('DELETE FROM users WHERE ID = ?', [id]);
+        req.flash('success', 'User Removed Successfully');
+        res.redirect('/vapebro/crud');
+     });
+
+     router.get('/rol/:id',isLoggedIn, async (req,res) => {
+        await pool.query('UPDATE users SET rol = 1 WHERE 1');
+        req.flash('success', 'This user is admin');
+        res.redirect('/vapebro/crud');
+    });
+
+     
+
+
 module.exports = router;
