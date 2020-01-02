@@ -9,6 +9,8 @@
                      </h3>
                     {{#if rol}}
                     <p class="m-2">Is Admin</p>
+                    {{else}}
+                    <p class="m-2">Is User</p>
                     {{/if}}
                     <p class="m-2">{{username}}</p>
                     <p class="text-muted">
@@ -17,8 +19,15 @@
                     <a class="btn btn-outline-danger" href="/vapebro/deleteUs/{{id}}">
                         Delete user
                     </a>
-                    <a class="btn btn-outline-secondary" href="/vapebro/rol/{{id}}">admin
+
+                    
+                    {{#if rol}}
+                    <a class="btn btn-outline-secondary" href="/vapebro/rolUs/{{id}}">Sacar Admin
                     </a>
+                    {{else}}
+                <a class="btn btn-outline-secondary" href="/vapebro/rol/{{id}}">Admin
+                    </a>
+                    {{/if}}
                 </div>
             </div>
         </div>

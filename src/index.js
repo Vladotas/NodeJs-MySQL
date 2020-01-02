@@ -47,6 +47,7 @@ app.use((req,res,next) =>{
     app.locals.message = req.flash('message');
     app.locals.user = req.user;
     app.locals.productos = req.productos;
+    
     next();
 });
 

@@ -12,15 +12,26 @@
                     <p class="text-muted">
                         {{timeago created_at}}
                     </p>
+                    {{#if ../user.rol}}
                     <a class="btn btn-outline-danger" href="/vapebro/delete/{{id}}">
                         Delete product
                     </a>
                     <a class="btn btn-outline-secondary" href="/vapebro/edit/{{id}}">
                         Edit
                     </a>
-                    <a class="btn btn-outline-secondary fa fa-shopping-cart" href="/vapebro/carrito/{{id}}">
+                    {{else}}
+                    {{!--  <a class="btn btn-outline-success" href="/vapebro/comprar/{{id}}"></a>
+                        Buy
+                    </a> --}}
+                    <form action="/vapebro/addd" method="POST" class="m-2">
+                     <input type="text" name="title" value="{{title}}" style="display:none">
+                     <input type="text" name="precio" value="{{precio}}" style="display:none">
+                     <input type="text" name="description" value="{{description}}" style="display:none">
+                    <button class="btn btn-outline-success fa fa-shopping-cart m-2" onclick="compra()">
                         +
-                    </a>
+                    </button>
+                    </form>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -34,3 +45,13 @@
         {{/each}}
     </div>
 </div>
+<script>
+function compra (){
+    Swal.fire({
+  icon: 'success',
+  title: 'Your products are in the car',
+  showConfirmButton: false,
+  timer: 1000
+})
+}
+</script>

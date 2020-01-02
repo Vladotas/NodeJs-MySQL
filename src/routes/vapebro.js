@@ -21,6 +21,24 @@ router.get('/add',isLoggedIn,(req,res) =>{
         res.redirect('/vapebro');
     });
 
+    router.get('/addd',isLoggedIn,(req,res) =>{
+        res.render('links/addd');
+        });
+    
+        router.post('/addd',isLoggedIn, async (req,res) => {
+            const {title, description, precio} = req.body;
+            const newProduct = {
+                title,
+                description,
+                precio,
+                user_id: req.user.id 
+            };
+            await pool.query('INSERT INTO buys set ?',[newProduct])
+            req.flash('success', 'Product Saved Successfully');
+            res.redirect('/vapebro');
+        });
+
+
     router.get(`/`,isLoggedIn, async (req,res) =>{
         const productos = await pool.query('SELECT * FROM productos');
         res.render('links/list', { productos });
@@ -67,12 +85,30 @@ router.get('/add',isLoggedIn,(req,res) =>{
      });
 
      router.get('/rol/:id',isLoggedIn, async (req,res) => {
-        await pool.query('UPDATE users SET rol = 1 WHERE 1');
+        const {id} = req.params;
+        await pool.query('UPDATE users SET rol = 1 WHERE id = ?', [id]);
         req.flash('success', 'This user is admin');
         res.redirect('/vapebro/crud');
     });
 
-     
+    router.get('/rolUs/:id',isLoggedIn, async (req,res) => {
+        const {id} = req.params;
+        await pool.query('UPDATE users SET rol = NULL WHERE id = ?', [id]);
+        req.flash('success', 'This user is not admin');
+        res.redirect('/vapebro/crud');
+    });
 
+    router.get('/carrito',isLoggedIn, async (req,res) => {
+        const buys = await pool.query('SELECT * FROM buys WHERE user_id = ?',[req.user.id]);
+        res.render('links/carrito', { buys });
+    });
+
+
+    router.get('/deletee/:id',isLoggedIn, async (req,res) =>{
+        const {id} = req.params;
+        await pool.query('DELETE FROM buys WHERE ID = ?', [id]);
+        res.redirect('/vapebro/carrito');
+     });
+               
 
 module.exports = router;

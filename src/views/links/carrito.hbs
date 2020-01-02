@@ -1,22 +1,48 @@
 <div class="container p-4">
+    <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <button class="btn btn-outline-success" onclick="compra()" >Buy All</button>
+            </div>
+    </div>        
+</div>          
+<div class="container p-4">
     <div class="row">
+        {{#each buys}}
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
                     <h3 class="card-title text-uppercase">
-                        {{producto.title}}
+                        {{title}}
                      </h3>
-                    <p class="m-2">{{producto.precio}}$</p>
-                    <p class="m-2">{{producto.description}}</p>
-                    <a class="btn btn-outline-danger" href="/vapebro/delete/{{id}}">
+                    <p class="m-2">{{precio}}$</p>
+                    <p class="m-2">{{description}}</p>
+                    <p class="text-muted">
+                        {{timeago created_at}}
+                    </p>
+                    <a class="btn btn-outline-danger" href="/vapebro/deletee/{{id}}">
                         Delete product
-                    </a>
-                    <a class="btn btn-outline-secondary" href="/vapebro/edit/{{id}}">
-                        Edit
-                    </a>
-                    <a class="btn btn-outline-secondary fa fa-shopping-cart" href="/vapebro/{{id}}">
-                        +
                     </a>
                 </div>
             </div>
         </div>
+
+        {{else}}
+        <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+                <p>There are not products saved yet.</p>
+                <a href="/vapebro">Add One!</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+<script>
+function compra (){
+    Swal.fire({
+  icon: 'success',
+  title: 'Your products has been buy',
+  showConfirmButton: false,
+  timer: 1500
+})
+}
+</script>
